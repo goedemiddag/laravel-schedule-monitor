@@ -1,0 +1,39 @@
+name: Laravel schedule monitor CI
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  php-tests:
+    name: Suite (PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }})
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      fail-fast: true
+      matrix:
+        operating-system:
+          - ubuntu-22.04
+        php-versions:
+          - "8.1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      - name: Install Dependencies
+        run: |
+          composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress
+
+      - name: Execute static analysis via phpstan
+        run: |
+          vendor/bin/phpstan
+
+      - name: Execute tests via phpunit
+        run: |
+          vendor/bin/phpunit
+
+      - name: Check code style
+        run: |
+          vendor/bin/php-cs-fixer fix --config .php-cs-fixer.php --dry-run
