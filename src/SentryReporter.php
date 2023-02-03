@@ -11,7 +11,7 @@ class SentryReporter implements JobReporter
 
 
     public function __construct(
-        protected readonly string $monitorId,
+        protected readonly ?string $monitorId,
     ) {
         $dsn = config('sentry.dsn');
 
@@ -30,7 +30,7 @@ class SentryReporter implements JobReporter
 
     public function shouldReport(): bool
     {
-        return isset($this->dsn);
+        return isset($this->dsn, $this->monitorId);
     }
 
 

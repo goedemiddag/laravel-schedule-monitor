@@ -22,7 +22,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 ->onFailure($reporter->failed(...));
         });
 
-        Event::macro('monitorWithSentry', function (string $uuid): Event {
+        Event::macro('monitorWithSentry', function (?string $uuid): Event {
             /** @var Event $event */
             $event = $this;
 

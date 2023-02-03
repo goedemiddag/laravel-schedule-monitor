@@ -2,6 +2,7 @@
 
 namespace Goedemiddag\ScheduleMonitor\Tests;
 
+use Goedemiddag\ScheduleMonitor\SentryReporter;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\EventMutex;
 use Illuminate\Http\Client\Request;
@@ -10,6 +11,21 @@ use Mockery as m;
 
 final class SentryTest extends TestCase
 {
+    public function testShouldntReportWithoutDsn(): void
+    {
+        $monitor = new SentryReporter('foobar');
+
+        $this->assertFalse($monitor->shouldReport());
+    }
+
+
+    public function testShouldntReportWithoutMonitorId(): void
+    {
+        $monitor = new SentryReporter(null);
+
+        $this->assertFalse($monitor->shouldReport());
+    }
+
     public function testSuccessfulJob(): void
     {
         Http::fake();
