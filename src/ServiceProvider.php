@@ -2,6 +2,7 @@
 
 namespace Goedemiddag\ScheduleMonitor;
 
+use Goedemiddag\ScheduleMonitor\Console\SentryCommand;
 use Illuminate\Console\Scheduling\Event;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
@@ -22,12 +23,17 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 ->onFailure($reporter->failed(...));
         });
 
-        Event::macro('monitorWithSentry', function (?string $uuid): Event {
+        Event::macro('monitorWithSentry', function (?string $uuid, ?string $dsn = null): Event {
             /** @var Event $event */
             $event = $this;
 
             /* @phpstan-ignore-next-line */
-            return $event->monitor(new SentryReporter($uuid));
+
+            return $event->monitor(new SentryReporter($uuid, $dsn));
         });
+
+        $this->commands([
+            SentryCommand::class,
+        ]);
     }
 }

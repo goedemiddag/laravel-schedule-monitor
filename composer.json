@@ -17,16 +17,18 @@
   ],
   "require": {
     "php": "^8.1",
-    "illuminate/console": "^9.48",
-    "illuminate/http": "^9.48",
-    "illuminate/support": "^9.48"
+    "illuminate/console": "^9.0",
+    "illuminate/http": "^9.0",
+    "illuminate/support": "^9.0"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.13",
     "phpstan/phpstan": "^1.9",
     "rector/rector": "^0.14.8",
     "orchestra/testbench": "^7.17",
-    "guzzlehttp/guzzle": "^7.5"
+    "guzzlehttp/guzzle": "^7.5",
+    "sentry/sentry": "^3.12.1",
+    "php-http/guzzle7-adapter": "^1.0"
   },
   "suggests": {
     "sentry/sentry-laravel": "^3.1"
