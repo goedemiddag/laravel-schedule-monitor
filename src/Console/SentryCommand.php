@@ -7,7 +7,6 @@ use Illuminate\Console\Command;
 
 class SentryCommand extends Command
 {
-
     protected $signature = 'schedule:monitor:sentry {uuid} {--dsn=} {--error}';
 
     protected $description = 'Dispatch a signal to Sentry cron monitoring';
@@ -34,5 +33,4 @@ class SentryCommand extends Command
 
         return self::SUCCESS;
     }
-
 }
