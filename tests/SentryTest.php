@@ -35,6 +35,9 @@ final class SentryTest extends TestCase
         $monitor = new SentryReporter('foobar');
 
         $this->assertTrue($monitor->shouldReport());
+
+        // Reset for future tests
+        SentryReporter::resolveDsnUsing(null);
     }
 
     public function testSuccessfulJob(): void

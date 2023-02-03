@@ -28,7 +28,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $event = $this;
 
             /* @phpstan-ignore-next-line */
-
             return $event->monitor(new SentryReporter($uuid, $dsn));
         });
 
