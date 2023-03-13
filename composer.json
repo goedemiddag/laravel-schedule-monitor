@@ -1,7 +1,7 @@
 {
   "name": "goedemiddag/laravel-schedule-monitor",
   "description": "Monitoring for scheduled jobs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "keywords": [
     "laravel",
     "sentry",
