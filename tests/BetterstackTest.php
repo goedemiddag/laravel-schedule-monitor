@@ -29,10 +29,10 @@ final class BetterstackTest extends TestCase
             ->run(app());
 
         Http::assertSentInOrder([
-            function (Request $request) {
+            function (Request $request): bool {
                 return $request->url() === 'https://uptime.betterstack.com/api/v1/heartbeat/foobar/'
                     && $request->method() === 'POST';
-            }
+            },
         ]);
     }
 

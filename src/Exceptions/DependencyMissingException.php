@@ -2,6 +2,8 @@
 
 namespace Goedemiddag\ScheduleMonitor\Exceptions;
 
-class DependencyMissingException extends \RuntimeException implements ScheduleMonitoringException
+use RuntimeException;
+
+class DependencyMissingException extends RuntimeException implements ScheduleMonitoringException
 {
 }

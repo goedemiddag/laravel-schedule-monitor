@@ -2,7 +2,6 @@
 
 namespace Goedemiddag\ScheduleMonitor;
 
-use Closure;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 
@@ -27,18 +26,15 @@ class BetterstackReporter implements JobReporter
         return isset($this->heartbeatId);
     }
 
-
     public function inProgress(): void
     {
         // Not supported by Better Stack
     }
 
-
     public function success(): void
     {
         $this->http()->post('');
     }
-
 
     public function failed(): void
     {

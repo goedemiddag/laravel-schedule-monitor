@@ -7,8 +7,14 @@ use Illuminate\Console\Command;
 
 class SentryCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected $signature = 'schedule:monitor:sentry {uuid} {--dsn=} {--error}';
 
+    /**
+     * @var string
+     */
     protected $description = 'Dispatch a signal to Sentry cron monitoring';
 
     public function handle(): int
@@ -20,6 +26,7 @@ class SentryCommand extends Command
 
         if (!$reporter->shouldReport()) {
             $this->error("Can't report: missing Monitor ID or DSN");
+
             return self::FAILURE;
         }
 

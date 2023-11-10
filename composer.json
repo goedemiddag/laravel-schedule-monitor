@@ -22,13 +22,14 @@
     "illuminate/support": "^9.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.13",
+    "driftingly/rector-laravel": "^0.14.2",
+    "guzzlehttp/guzzle": "^7.5",
+    "laravel/pint": "^1.12",
+    "orchestra/testbench": "^7.17",
+    "php-http/guzzle7-adapter": "^1.0",
     "phpstan/phpstan": "^1.9",
     "rector/rector": "^0.14.8",
-    "orchestra/testbench": "^7.17",
-    "guzzlehttp/guzzle": "^7.5",
-    "sentry/sentry": "^3.12.1",
-    "php-http/guzzle7-adapter": "^1.0"
+    "sentry/sentry": "^3.12.1"
   },
   "suggests": {
     "sentry/sentry-laravel": "^3.1"
@@ -51,5 +52,35 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "scripts": {
+    "test": [
+      "@test:analyze",
+      "@test:no-coverage"
+    ],
+    "test:analyze": "vendor/bin/phpstan analyze",
+    "test:coverage": "vendor/bin/phpunit",
+    "test:no-coverage": "vendor/bin/phpunit --no-coverage",
+    "pint:check": "vendor/bin/pint --test",
+    "pint:fix": "vendor/bin/pint",
+    "rector:check": "@rector:fix --dry-run",
+    "rector:fix": "@php vendor/bin/rector process",
+    "lint:check": [
+      "@rector:check",
+      "@pint:check"
+    ],
+    "lint:fix": [
+      "@rector:fix",
+      "@pint:fix"
+    ],
+    "all": [
+      "@test",
+      "@lint:fix"
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
 }

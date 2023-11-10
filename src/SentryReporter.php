@@ -10,7 +10,7 @@ use Sentry\Dsn;
 
 class SentryReporter implements JobReporter
 {
-    protected static ?Closure $resolveDsnCallback;
+    protected static ?Closure $resolveDsnCallback = null;
 
     public function __construct(
         protected readonly ?string $monitorId,
@@ -41,9 +41,7 @@ class SentryReporter implements JobReporter
             $url .= ':' . $dsn->getPort();
         }
 
-        if ($dsn->getPath() !== null) {
-            $url .= $dsn->getPath();
-        }
+        $url .= $dsn->getPath();
 
         return Http::baseUrl("{$url}/api/0/monitors/{$this->monitorId}/checkins")
             ->withToken($dsnString, 'DSN');
@@ -53,7 +51,6 @@ class SentryReporter implements JobReporter
     {
         self::$resolveDsnCallback = $callback;
     }
-
 
     private function resolveDsn(): mixed
     {
@@ -68,14 +65,12 @@ class SentryReporter implements JobReporter
         return config('sentry.dsn');
     }
 
-
     public function shouldReport(): bool
     {
         $dsn = $this->resolveDsn();
 
         return isset($dsn, $this->monitorId);
     }
-
 
     public function inProgress(): void
     {
@@ -84,14 +79,12 @@ class SentryReporter implements JobReporter
         ]);
     }
 
-
     public function success(): void
     {
         $this->http()->put('latest/', [
             'status' => 'ok',
         ]);
     }
-
 
     public function failed(): void
     {
