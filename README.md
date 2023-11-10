@@ -3,6 +3,7 @@
 This package allows you to monitor your scheduled commands and jobs.
 
 Supported implementations:
+- [Better Stack](https://betterstack.com/docs/uptime/cron-and-heartbeat-monitor/)
 - [Sentry](https://docs.sentry.io/product/crons/)
 
 ## Installation

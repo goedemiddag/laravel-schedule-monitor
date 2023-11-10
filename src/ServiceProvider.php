@@ -31,6 +31,14 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return $event->monitor(new SentryReporter($uuid, $dsn));
         });
 
+        Event::macro('monitorWithBetterstack', function (?string $id): Event {
+            /** @var Event $event */
+            $event = $this;
+
+            /* @phpstan-ignore-next-line */
+            return $event->monitor(new BetterstackReporter($id));
+        });
+
         $this->commands([
             SentryCommand::class,
         ]);
