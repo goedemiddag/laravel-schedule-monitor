@@ -7,8 +7,14 @@ use Illuminate\Console\Command;
 
 class BetterstackCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected $signature = 'schedule:monitor:betterstack {id}';
 
+    /**
+     * @var string
+     */
     protected $description = 'Dispatch a signal to Betterstack cron monitoring';
 
     public function handle(): int
@@ -19,6 +25,7 @@ class BetterstackCommand extends Command
 
         if (!$reporter->shouldReport()) {
             $this->error("Can't report: missing Heartbeat ID");
+
             return self::FAILURE;
         }
 

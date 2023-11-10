@@ -18,7 +18,6 @@ final class SentryTest extends TestCase
         $this->assertFalse($monitor->shouldReport());
     }
 
-
     public function testShouldntReportWithoutMonitorId(): void
     {
         $monitor = new SentryReporter(null);
@@ -28,7 +27,7 @@ final class SentryTest extends TestCase
 
     public function testShouldReportWithCustomDsnResolver(): void
     {
-        SentryReporter::resolveDsnUsing(function () {
+        SentryReporter::resolveDsnUsing(function (): string {
             return 'foobar';
         });
 
@@ -52,14 +51,14 @@ final class SentryTest extends TestCase
             ->monitorWithSentry('foobar')
             ->run(app());
 
-        Http::assertSent(function (Request $request) {
+        Http::assertSent(function (Request $request): bool {
             return $request->url() === 'https://sentry.io/api/0/monitors/foobar/checkins/'
                 && $request->method() === 'POST'
                 && $request->header('Authorization') === ['DSN https://token@o12345.ingest.sentry.io/67890']
                 && $request->body() === '{"status":"in_progress"}';
         });
 
-        Http::assertSent(function (Request $request) {
+        Http::assertSent(function (Request $request): bool {
             return $request->url() === 'https://sentry.io/api/0/monitors/foobar/checkins/latest/'
                 && $request->method() === 'PUT'
                 && $request->header('Authorization') === ['DSN https://token@o12345.ingest.sentry.io/67890']
@@ -77,14 +76,14 @@ final class SentryTest extends TestCase
             ->monitorWithSentry('foobar', 'https://token@self-hosted.example.com/sentry/12345')
             ->run(app());
 
-        Http::assertSent(function (Request $request) {
+        Http::assertSent(function (Request $request): bool {
             return $request->url() === 'https://self-hosted.example.com/sentry/api/0/monitors/foobar/checkins/'
                 && $request->method() === 'POST'
                 && $request->header('Authorization') === ['DSN https://token@self-hosted.example.com/sentry/12345']
                 && $request->body() === '{"status":"in_progress"}';
         });
 
-        Http::assertSent(function (Request $request) {
+        Http::assertSent(function (Request $request): bool {
             return $request->url() === 'https://self-hosted.example.com/sentry/api/0/monitors/foobar/checkins/latest/'
                 && $request->method() === 'PUT'
                 && $request->header('Authorization') === ['DSN https://token@self-hosted.example.com/sentry/12345']
@@ -104,14 +103,14 @@ final class SentryTest extends TestCase
             ->monitorWithSentry('foobar')
             ->run(app());
 
-        Http::assertSent(function (Request $request) {
+        Http::assertSent(function (Request $request): bool {
             return $request->url() === 'https://sentry.io/api/0/monitors/foobar/checkins/'
                 && $request->method() === 'POST'
                 && $request->header('Authorization') === ['DSN https://token@o12345.ingest.sentry.io/67890']
                 && $request->body() === '{"status":"in_progress"}';
         });
 
-        Http::assertSent(function (Request $request) {
+        Http::assertSent(function (Request $request): bool {
             return $request->url() === 'https://sentry.io/api/0/monitors/foobar/checkins/latest/'
                 && $request->method() === 'PUT'
                 && $request->header('Authorization') === ['DSN https://token@o12345.ingest.sentry.io/67890']
