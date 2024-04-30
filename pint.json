@@ -23,6 +23,9 @@
       ]
     },
     "not_operator_with_successor_space": false,
+    "nullable_type_declaration": true,
+    "nullable_type_declaration_for_default_null_value": true,
+    "phpdoc_align": false,
     "trailing_comma_in_multiline": {
       "elements": [
         "arrays",
@@ -34,7 +37,6 @@
       "elements": [
         "function"
       ]
-    },
-    "Laravel/laravel_phpdoc_alignment": false
+    }
   }
 }
