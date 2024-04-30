@@ -21,13 +21,13 @@
     "illuminate/support": "^9.0|^10.0|^11.0"
   },
   "require-dev": {
-    "driftingly/rector-laravel": "^0.14.2",
+    "driftingly/rector-laravel": "^1.0",
     "guzzlehttp/guzzle": "^7.5",
     "laravel/pint": "^1.12",
     "orchestra/testbench": "^7.17|^8.0|^9.0",
     "php-http/guzzle7-adapter": "^1.0",
     "phpstan/phpstan": "^1.9",
-    "rector/rector": "^0.14.8",
+    "rector/rector": "^1.0",
     "sentry/sentry": "^3.12.1"
   },
   "suggests": {
