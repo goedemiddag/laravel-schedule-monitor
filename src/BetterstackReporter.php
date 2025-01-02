@@ -38,6 +38,6 @@ class BetterstackReporter implements JobReporter
 
     public function failed(): void
     {
-        // Not supported by Better Stack
+        $this->http()->post('fail');
     }
 }
