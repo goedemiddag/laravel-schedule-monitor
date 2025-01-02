@@ -46,6 +46,11 @@ final class BetterstackTest extends TestCase
             ->monitorWithBetterstack('foobar')
             ->run(app());
 
-        Http::assertNothingSent();
+        Http::assertSentInOrder([
+            function (Request $request): bool {
+                return $request->url() === 'https://uptime.betterstack.com/api/v1/heartbeat/foobar/fail'
+                    && $request->method() === 'POST';
+            },
+        ]);
     }
 }
