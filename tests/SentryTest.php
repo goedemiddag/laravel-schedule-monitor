@@ -11,21 +11,21 @@ use Mockery as m;
 
 final class SentryTest extends TestCase
 {
-    public function testShouldntReportWithoutDsn(): void
+    public function test_shouldnt_report_without_dsn(): void
     {
         $monitor = new SentryReporter('foobar');
 
         $this->assertFalse($monitor->shouldReport());
     }
 
-    public function testShouldntReportWithoutMonitorId(): void
+    public function test_shouldnt_report_without_monitor_id(): void
     {
         $monitor = new SentryReporter(null);
 
         $this->assertFalse($monitor->shouldReport());
     }
 
-    public function testShouldReportWithCustomDsnResolver(): void
+    public function test_should_report_with_custom_dsn_resolver(): void
     {
         SentryReporter::resolveDsnUsing(function (): string {
             return 'foobar';
@@ -39,7 +39,7 @@ final class SentryTest extends TestCase
         SentryReporter::resolveDsnUsing(null);
     }
 
-    public function testSuccessfulJob(): void
+    public function test_successful_job(): void
     {
         Http::fake();
 
@@ -66,7 +66,7 @@ final class SentryTest extends TestCase
         });
     }
 
-    public function testSuccessfulJobWithCustomDsn(): void
+    public function test_successful_job_with_custom_dsn(): void
     {
         Http::fake();
 
@@ -91,7 +91,7 @@ final class SentryTest extends TestCase
         });
     }
 
-    public function testUnsuccessfulJob(): void
+    public function test_unsuccessful_job(): void
     {
         Http::fake();
 

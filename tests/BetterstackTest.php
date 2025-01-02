@@ -11,14 +11,14 @@ use Mockery as m;
 
 final class BetterstackTest extends TestCase
 {
-    public function testShouldntReportWithoutMonitorId(): void
+    public function test_shouldnt_report_without_monitor_id(): void
     {
         $monitor = new BetterstackReporter(null);
 
         $this->assertFalse($monitor->shouldReport());
     }
 
-    public function testSuccessfulJob(): void
+    public function test_successful_job(): void
     {
         Http::fake();
 
@@ -36,7 +36,7 @@ final class BetterstackTest extends TestCase
         ]);
     }
 
-    public function testUnsuccessfulJob(): void
+    public function test_unsuccessful_job(): void
     {
         Http::fake();
 
