@@ -80,6 +80,9 @@
   "config": {
     "allow-plugins": {
       "php-http/discovery": true
+    },
+    "audit": {
+      "block-insecure": false
     }
   }
 }
